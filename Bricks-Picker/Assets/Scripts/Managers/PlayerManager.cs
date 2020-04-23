@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        Player.SetUpMaterial();
         ChangePlayerColour(Player.BaseColour);
 
         GameManager.instance.OnGameStarted += OnGameStarted;

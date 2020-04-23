@@ -16,11 +16,14 @@ public class StackCollector : MonoBehaviour
 
     private void Start()
     {
-        materialClone = new Material(GameManager.instance.PlayerManager.MaterialSource);
-        MeshRenderer.material = materialClone;
-
         SuperPowerController.OnSuperPowerActivated += OnSuperPowerActivated;
         GameManager.instance.OnGameStarted += OnGameStarted;
+    }
+
+    public void SetUpMaterial()
+    {
+        materialClone = new Material(GameManager.instance.PlayerManager.MaterialSource);
+        MeshRenderer.material = materialClone;
     }
 
     public void ChangeColour(BaseColour colour)

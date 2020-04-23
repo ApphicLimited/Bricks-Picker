@@ -20,12 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         transform.position = GameManager.instance.PlayerManager.StartTransform.position;
-
         CurrentBaseColour = BaseColour;
-
-        materialClone = new Material(GameManager.instance.PlayerManager.MaterialSource);
-        MeshRenderer.material = materialClone;
-        materialClone.color = GameManager.instance.ColourController.GetColour(CurrentBaseColour);
     }
 
     // Update is called once per frame
@@ -58,6 +53,15 @@ public class Player : MonoBehaviour
 
         float step = Speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
+    }
+
+    public void SetUpMaterial()
+    {
+        StackCollector.SetUpMaterial();
+
+        materialClone = new Material(GameManager.instance.PlayerManager.MaterialSource);
+        MeshRenderer.material = materialClone;
+        materialClone.color = GameManager.instance.ColourController.GetColour(CurrentBaseColour);
     }
 
     public void MoveToSide(Vector3 position)

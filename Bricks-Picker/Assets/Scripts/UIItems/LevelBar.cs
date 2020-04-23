@@ -18,6 +18,6 @@ public class LevelBar : MonoBehaviour
     void Update()
     {
         float dff = GameManager.instance.PlayerManager.StartTransform.position.z- GameManager.instance.PlayerManager.EndTransform.position.z;
-        ImageLevelBar.fillAmount = dff ;
+        ImageLevelBar.fillAmount = GameManager.instance.PlayerManager.Player.transform.position.z * dff;
     }
 }
