@@ -17,6 +17,7 @@ public class LevelBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ImageLevelBar.fillAmount = Vector3.Distance(GameManager.instance.PlayerManager.StartTransform.position, GameManager.instance.PlayerManager.EndTransform.position);
+        float dff = GameManager.instance.PlayerManager.StartTransform.position.z- GameManager.instance.PlayerManager.EndTransform.position.z;
+        ImageLevelBar.fillAmount = dff ;
     }
 }
