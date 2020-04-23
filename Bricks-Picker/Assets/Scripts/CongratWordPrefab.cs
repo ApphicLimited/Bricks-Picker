@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CongratWordPrefab : MonoBehaviour
+{
+    public Text TextWord;
+
+    public FadeOut AnimationFadeOut;
+    public Move AnimationMove;
+
+    private void Start()
+    {
+        int maxNumber = (int)CongratWords.MAX;
+        CongratWords myEnum = (CongratWords)Random.Range(0, maxNumber);
+        TextWord.text = myEnum.ToString();
+    }
+
+    public void StartAnimation()
+    {
+        AnimationFadeOut.StartAnimation = true;
+        AnimationMove.StartAnimation = true;
+    }
+
+    public void StartAnimation(float delay)
+    {
+        StartCoroutine(StartAnimationByDelay(delay));
+    }
+
+    private IEnumerator StartAnimationByDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartAnimation();
+    }
+}
