@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainColour: 4
-  MoveSpeed: 1000
   Point: 5
-  MeshRenderer: {fileID: 3716473277836301836}
   CustomJoint: {fileID: 6909499682970739261}
+  MeshRenderer: {fileID: 3716473277836301836}
+  Rigidbody: {fileID: 6909499682970739238}
 --- !u!54 &6909499682970739238
 Rigidbody:
   m_ObjectHideFlags: 0

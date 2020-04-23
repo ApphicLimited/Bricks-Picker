@@ -93,8 +93,37 @@ public class CustomJoint : MonoBehaviour
 
     public void DisableJoint()
     {
+        if (configurableJoint==null)
+        {
+            return;
+        }
         configurableJoint.connectedBody = null;
         connectedRigToJoint.WakeUp();
+
+        configurableJoint.xMotion = ConfigurableJointMotion.Free;
+        configurableJoint.yMotion = ConfigurableJointMotion.Free;
+        configurableJoint.zMotion = ConfigurableJointMotion.Free;
+        configurableJoint.angularXMotion = ConfigurableJointMotion.Free;
+        configurableJoint.angularYMotion = ConfigurableJointMotion.Free;
+        configurableJoint.angularZMotion = ConfigurableJointMotion.Free;
+    }
+
+    public void BreakForce()
+    {
+        if (configurableJoint == null)
+        {
+            return;
+        }
+        configurableJoint.breakForce = 1000;
+    }
+
+    public void BreakTorque()
+    {
+        if (configurableJoint == null)
+        {
+            return;
+        }
+        configurableJoint.breakTorque = 1000;
     }
 }
 [System.Serializable]

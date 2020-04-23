@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ScoreController : MonoBehaviour
 {
-    private int furtherStackMetre;
-    public int FurtherStackMetre
+    private float furtherStackMetre;
+    public float FurtherStackMetre
     {
         get { return furtherStackMetre; }
         set

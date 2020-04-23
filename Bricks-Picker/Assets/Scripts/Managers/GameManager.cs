@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public ColourController ColourController;
     public ScoreController ScoreController;
     public CoinController CoinController;
+    public TimeController TimeController;
+
+    public CameraMovement CameraMovement;
 
     public GameStates GameState;
     public bool IsGameStarted;

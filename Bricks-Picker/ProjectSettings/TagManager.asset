@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stack
   - Coin
+  - MetreDetecter
   layers:
   - Default
   - TransparentFX

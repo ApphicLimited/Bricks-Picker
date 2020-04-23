@@ -10,6 +10,8 @@ public class StackCollector : MonoBehaviour
     public CustomJoint CustomJoint;
     public MeshRenderer MeshRenderer;
 
+    public bool Breakit;
+
     [HideInInspector]
     public List<Stack> CollectedStacks = new List<Stack>();
     private Material materialClone;
@@ -18,6 +20,15 @@ public class StackCollector : MonoBehaviour
     {
         SuperPowerController.OnSuperPowerActivated += OnSuperPowerActivated;
         GameManager.instance.OnGameStarted += OnGameStarted;
+    }
+
+    private void Update()
+    {
+        if (Breakit)
+        {
+            ResetJointSettings();
+            Breakit = false;
+        }
     }
 
     public void SetUpMaterial()
@@ -38,14 +49,19 @@ public class StackCollector : MonoBehaviour
     {
         Destroy(GameManager.instance.PlayerManager.Player.GetComponent<FixedJoint>());
         CustomJoint.DisableJoint();
-        foreach (var item in CollectedStacks)
-        {
-            item.CustomJoint.DisableJoint();
-            Destroy(item.GetComponent<ConfigurableJoint>());
+        CustomJoint.BreakForce();
+        CustomJoint.BreakTorque();
 
-            item.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            item.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        Destroy(GetComponent<ConfigurableJoint>());
+
+        foreach (var item in CollectedStacks)
+        {          
+            item.ResetJointSettings();
         }
+
+        GameManager.instance.GameState = GameStates.GameFinished;
+
+        Destroy(this);
     }
 
     private void UseMaxScale()
@@ -81,7 +97,7 @@ public class StackCollector : MonoBehaviour
                 CollectedStacks.Add(collision.collider.GetComponent<Stack>());
 
                 if (CollectedStacks.Count == 1)
-                    CollectedStacks.Last().MoveOverCollecter(transform.position + Vector3.up * 0.2f, DoSomething);
+                    CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
                 else
                     CollectedStacks.Last().MoveOverCollecter(CollectedStacks[CollectedStacks.Count - 2].transform.position + Vector3.up * 0.2f, DoSomething);
 

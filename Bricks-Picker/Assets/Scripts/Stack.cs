@@ -6,12 +6,14 @@ public class Stack : MonoBehaviour
 {
     public BaseColour MainColour;
     public int Point;
-    public MeshRenderer MeshRenderer;
     public CustomJoint CustomJoint;
+    public MeshRenderer MeshRenderer;
+    public Rigidbody Rigidbody;
 
     public BaseColour CurrentColour { get; set; }
 
     private Material materialClone;
+    private bool keepdestroy;
 
     public delegate void AfterMoved();
     public AfterMoved AfterMovedDoAction;
@@ -25,8 +27,17 @@ public class Stack : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.GameState != GameStates.GameOnGoing)
-            return;
+        //if (GameManager.instance.GameState != GameStates.GameOnGoing)
+        //    return;
+
+        if (keepdestroy)
+        {
+            if (GetComponent<ConfigurableJoint>() == null)
+            {
+                keepdestroy = false;
+            }
+            Destroy(GetComponent<ConfigurableJoint>());
+        }
     }
 
     public void ChangeColour(BaseColour colour)
@@ -41,10 +52,16 @@ public class Stack : MonoBehaviour
         materialClone.color = GameManager.instance.ColourController.GetColour(MainColour);
     }
 
-
-    private void ResetJointSettings()
+    public void ResetJointSettings()
     {
+        keepdestroy = true;
 
+        CustomJoint.DisableJoint();
+        CustomJoint.BreakForce();
+        CustomJoint.BreakTorque();
+
+        Rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
+        Rigidbody.AddForce(Vector3.forward * 40, ForceMode.Impulse);
     }
 
     public void MoveOverCollecter(Vector3 newPos, AfterMoved action = null)

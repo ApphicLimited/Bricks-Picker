@@ -8,8 +8,9 @@ public class Player : MonoBehaviour
     public float ForwardSpeed;
     public float Speed;
     public BaseColour BaseColour;
-    public MeshRenderer MeshRenderer;
+    public SkinnedMeshRenderer SkinnedMeshRenderer;
     public StackCollector StackCollector;
+    public Animator Animator;
 
     public BaseColour CurrentBaseColour { get; set; }
 
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour
 
         if (Vector3.Distance(GameManager.instance.PlayerManager.EndTransform.position, transform.position) < 3f)
         {
-            if (IsArrived==false)
+            if (IsArrived == false)
                 ArrivedDest();
             return;
         }
@@ -45,12 +46,6 @@ public class Player : MonoBehaviour
         if (GameManager.instance.GameState != GameStates.GameOnGoing)
             return;
 
-        if (Mathf.Abs(GameManager.instance.PlayerManager.EndTransform.position.z - transform.position.z) < 0.1f)
-        {
-            StackCollector.ResetJointSettings();
-            GameManager.instance.GameState = GameStates.GamePaused;
-        }
-
         float step = Speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
     }
@@ -60,8 +55,14 @@ public class Player : MonoBehaviour
         StackCollector.SetUpMaterial();
 
         materialClone = new Material(GameManager.instance.PlayerManager.MaterialSource);
-        MeshRenderer.material = materialClone;
+        SkinnedMeshRenderer.material = materialClone;
         materialClone.color = GameManager.instance.ColourController.GetColour(CurrentBaseColour);
+    }
+
+    public void PlayKickAnim()
+    {
+        Animator.SetBool("Kicking", true);
+        Animator.SetBool("Running", false);
     }
 
     public void MoveToSide(Vector3 position)
@@ -79,6 +80,10 @@ public class Player : MonoBehaviour
     private void ArrivedDest()
     {
         IsArrived = true;
+        GameManager.instance.TimeController.DoSlowMotion();
+        GameManager.instance.CameraMovement.AdjustCamToKicking();
+        StackCollector.ResetJointSettings();
+        GameManager.instance.GameState = GameStates.GamePaused;
     }
 
     private void OnTriggerEnter(Collider other)
