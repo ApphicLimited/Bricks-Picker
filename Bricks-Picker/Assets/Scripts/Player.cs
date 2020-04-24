@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
         //Jump up
         Rigidbody.velocity = new Vector3(0f, 5f, -5f);
         GameManager.instance.TimeController.DoSlowMotion();
+        Debug.Log("11");
         GameManager.instance.GameState = GameStates.GamePaused;
     }
 
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
 
     public void AtEndOfKickingAnim()
     {
-        GameManager.instance.CameraMovement.GoForward();
+        GameManager.instance.SmothFollow.GoForward();
         StackCollector.ResetJointSettings();
         StackCollector.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
     }

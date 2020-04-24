@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public CoinController CoinController;
     public TimeController TimeController;
 
-    public CameraMovement CameraMovement;
+    public SmoothFollow SmothFollow;
 
     public GameStates GameState;
     public bool IsGameStarted;
