@@ -37,17 +37,12 @@ public class StackCollector : MonoBehaviour
     public void ResetJointSettings()
     {
         Destroy(GameManager.instance.PlayerManager.Player.GetComponent<FixedJoint>());
-        //CustomJoint.DisableJoint();
-        //CustomJoint.BreakForce();
-        //CustomJoint.BreakTorque();
-
-        //Destroy(GetComponent<ConfigurableJoint>());
 
         foreach (var item in CollectedStacks)
-        {          
-            item.ResetJointSettings();
+        {
+            item.EnableElastic(false);
+            item.AddForce();
         }
-
         GameManager.instance.GameState = GameStates.GameFinished;
 
         Destroy(this);
@@ -65,19 +60,8 @@ public class StackCollector : MonoBehaviour
 
     private void DoSomething()
     {
-        //if (CollectedStacks.Count == 1)
-        //{
-        //    CustomJoint.SetUpJoint(10, CollectedStacks[0].gameObject.GetComponent<Rigidbody>());
-        //}
-        //else
-        //{
-        //    for (int i = 0; i < CollectedStacks.Count; i++)
-        //        if (i + 1 < CollectedStacks.Count)
-        //            CollectedStacks[i].CustomJoint.SetUpJoint(10, CollectedStacks[i + 1].GetComponent<Rigidbody>());
-        //}
-
         for (int i = 0; i < CollectedStacks.Count; i++)
-            CollectedStacks[i].CustomJoint.SetUpJoint(GetComponent<Rigidbody>());
+            CollectedStacks[i].EnableElastic(true, transform);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -89,25 +73,30 @@ public class StackCollector : MonoBehaviour
                 CollectedStacks.Add(collision.collider.GetComponent<Stack>());
 
                 if (CollectedStacks.Count == 1)
-                    CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
-                else
                 {
                     CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
+                    CollectedStacks.Last().Elastic.AnimationSpeed = 50;
+                }
+                else
+                {
+                    float perAnimationRange = CollectedStacks.Count / 50;
+
+                    CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
+                    CollectedStacks.Last().Elastic.AnimationSpeed = 50;
+
                     for (int i = 0; i < CollectedStacks.Count - 1; i++)
                     {
                         CollectedStacks[i].MoveOverCollecter(new Vector3(
                             transform.position.x, CollectedStacks[i].transform.position.y + 0.2f,
                             transform.position.z),
                             DoSomething);
+
+                        CollectedStacks[i].Elastic.AnimationSpeed -= perAnimationRange+0.5f;
+
+                        if (CollectedStacks[i].Elastic.AnimationSpeed < 5)
+                            CollectedStacks[i].Elastic.AnimationSpeed = 5;
                     }
                 }
-                    //CollectedStacks.Last().MoveOverCollecter(CollectedStacks[CollectedStacks.Count - 2].transform.position + Vector3.up * 0.2f, DoSomething);
-
-                //int mass = 1000 - CollectedStacks.Count;
-                //if (mass>10)
-                //{
-                //    collision.collider.GetComponent<Stack>().Rigidbody.mass = mass;
-                //}
 
                 GameManager.instance.SuperPowerController.AddPower(CollectedStacks.Last().Point);
                 GameManager.instance.ScoreController.CurrentCollectedStackNumber++;

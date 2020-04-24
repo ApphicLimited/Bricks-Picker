@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7814002209245637630}
   - component: {fileID: 7814002209245637625}
   - component: {fileID: 7814002209245637629}
+  - component: {fileID: 2086154974337902190}
   - component: {fileID: 29040596}
-  - component: {fileID: 29040591}
   m_Layer: 0
   m_Name: Stack
   m_TagString: Stack
@@ -110,9 +110,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainColour: 4
   Point: 1
-  CustomJoint: {fileID: 29040591}
+  Elastic: {fileID: 2086154974337902190}
   MeshRenderer: {fileID: 7814002209245637630}
   Rigidbody: {fileID: 29040596}
+--- !u!114 &2086154974337902190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7814002209245637624}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503797b74869c454283e57db8356bfdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  AnimationSpeed: 0
 --- !u!54 &29040596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,62 +143,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &29040591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7814002209245637624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df86da399f515464ab732f825420ec27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConnectedBody: {fileID: 0}
-  Anchor: {x: 0, y: 0.5, z: 0}
-  Axis: {x: 1, y: 0, z: 0}
-  AutoConfigureConnectedAnchor: 1
-  ConnectedAnchor: {x: 0, y: 0, z: 0}
-  SecondaryAxis: {x: 0, y: 1, z: 0}
-  XMotion: 1
-  YMotion: 0
-  ZMotion: 0
-  AngularXMotion: 1
-  AngularYMotion: 0
-  AngularZMotion: 0
-  LinearLimitSpring:
-    Spring: 10
-    Damper: 1
-  LinearLimit:
-    Limit: 0.01
-    Bounciness: 0
-    ContactDistance: 0
-  XDrive:
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.402823e+38
-  YDrive:
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.402823e+38
-  ZDrive:
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.402823e+38
-  AngularXDrive:
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.402823e+38
-  AngularYZDrive:
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.402823e+38
-  SlerpDrive:
-    positionSpring: 0
-    positionDamper: 0
-    maximumForce: 3.402823e+38
-  MassScale: 10
-  ConnectedMassScale: 1
-  EnableCollision: 0
-  EnablePreprocessing: 1
