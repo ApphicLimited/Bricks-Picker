@@ -61,7 +61,7 @@ public class Stack : MonoBehaviour
         CustomJoint.BreakTorque();
 
         Rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionY;
-        Rigidbody.AddForce(Vector3.forward * 300, ForceMode.Impulse);
+        Rigidbody.AddForce(Vector3.forward * 30, ForceMode.Impulse);
     }
 
     public void MoveOverCollecter(Vector3 newPos, AfterMoved action = null)

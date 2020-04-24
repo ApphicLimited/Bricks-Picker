@@ -41,7 +41,7 @@ public class StackCollector : MonoBehaviour
         //CustomJoint.BreakForce();
         //CustomJoint.BreakTorque();
 
-        Destroy(GetComponent<ConfigurableJoint>());
+        //Destroy(GetComponent<ConfigurableJoint>());
 
         foreach (var item in CollectedStacks)
         {          
@@ -91,7 +91,16 @@ public class StackCollector : MonoBehaviour
                 if (CollectedStacks.Count == 1)
                     CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
                 else
-                    CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, CollectedStacks.Count * 0.2f, transform.position.z), DoSomething);
+                {
+                    CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
+                    for (int i = 0; i < CollectedStacks.Count - 1; i++)
+                    {
+                        CollectedStacks[i].MoveOverCollecter(new Vector3(
+                            transform.position.x, CollectedStacks[i].transform.position.y + 0.2f,
+                            transform.position.z),
+                            DoSomething);
+                    }
+                }
                     //CollectedStacks.Last().MoveOverCollecter(CollectedStacks[CollectedStacks.Count - 2].transform.position + Vector3.up * 0.2f, DoSomething);
 
                 //int mass = 1000 - CollectedStacks.Count;

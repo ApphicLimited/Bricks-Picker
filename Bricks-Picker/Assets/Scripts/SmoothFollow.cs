@@ -20,7 +20,7 @@ public class SmoothFollow : MonoBehaviour
 
     private bool isGoingForward;
 
-    void Update()
+    void FixedUpdate()
     {
         // Early out if we don't have a target
         if (!target) return;
@@ -32,8 +32,9 @@ public class SmoothFollow : MonoBehaviour
             {
                 return;
             }
-            transform.position = new Vector3(transform.position.x, height, transform.position.z + 20 * Time.deltaTime);
-            //transform.LookAt(target);
+
+            transform.position =  new Vector3(transform.position.x, height, transform.position.z + 20 * Time.deltaTime);
+            transform.LookAt(target);
         }
         else
         {
@@ -73,8 +74,8 @@ public class SmoothFollow : MonoBehaviour
     public void GoForward()
     {
         isGoingForward = true;
-        height = 12;
-        distance = 20;
+        height = 7;
+        distance = 10;
     }
 
     /*
