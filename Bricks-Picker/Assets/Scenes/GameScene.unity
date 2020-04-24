@@ -34441,7 +34441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14694d0590ca76d4aa80ca4187e8dad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainColour: 0
+  MainColour: 4
   MyBase: {fileID: 0}
   Aura: {fileID: 0}
   Particles: {fileID: 0}
@@ -36505,7 +36505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14694d0590ca76d4aa80ca4187e8dad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainColour: 0
+  MainColour: 1
   MyBase: {fileID: 0}
   Aura: {fileID: 0}
   Particles: {fileID: 0}
@@ -37959,7 +37959,7 @@ MonoBehaviour:
   CoinController: {fileID: 4046587069548003221}
   TimeController: {fileID: 8541529255760705587}
   SmothFollow: {fileID: 8541529254917325184}
-  GameState: 1
+  GameState: 2
   IsGameStarted: 1
 --- !u!4 &4046587070560623915
 Transform:

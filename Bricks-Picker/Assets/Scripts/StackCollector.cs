@@ -75,14 +75,14 @@ public class StackCollector : MonoBehaviour
                 if (CollectedStacks.Count == 1)
                 {
                     CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
-                    CollectedStacks.Last().Elastic.AnimationSpeed = 50;
+                    CollectedStacks.Last().Elastic.AnimationSpeed = 100;
                 }
                 else
                 {
-                    float perAnimationRange = CollectedStacks.Count / 50;
+                    float perAnimationRange = CollectedStacks.Count / 100;
 
                     CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
-                    CollectedStacks.Last().Elastic.AnimationSpeed = 50;
+                    CollectedStacks.Last().Elastic.AnimationSpeed = 100;
 
                     for (int i = 0; i < CollectedStacks.Count - 1; i++)
                     {
@@ -91,10 +91,14 @@ public class StackCollector : MonoBehaviour
                             transform.position.z),
                             DoSomething);
 
-                        CollectedStacks[i].Elastic.AnimationSpeed -= perAnimationRange+0.5f;
+                        CollectedStacks[i].Elastic.AnimationSpeed -= perAnimationRange + 0.5f;
 
-                        if (CollectedStacks[i].Elastic.AnimationSpeed < 5)
-                            CollectedStacks[i].Elastic.AnimationSpeed = 5;
+                        if (CollectedStacks[i].Elastic.AnimationSpeed < 1)
+                            CollectedStacks[i].Elastic.AnimationSpeed = 1;
+                        else if (CollectedStacks[i].Elastic.AnimationSpeed < 5)
+                            CollectedStacks[i].Elastic.AnimationSpeed -= perAnimationRange + 0.05f;
+                        else if (CollectedStacks[i].Elastic.AnimationSpeed < 10)
+                            CollectedStacks[i].Elastic.AnimationSpeed -= perAnimationRange + 0.1f;
                     }
                 }
 

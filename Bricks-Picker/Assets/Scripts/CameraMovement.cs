@@ -29,7 +29,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Mathf.Abs(transform.position.z - GameManager.instance.PlayerManager.EndTransform.position.z) < 20f)
+        if (Mathf.Abs(transform.position.z - GameManager.instance.PlayerManager.EndTransform.position.z) < 30f)
             IsApproachedToEndPoint = true;
 
         AdjustCamPos();
