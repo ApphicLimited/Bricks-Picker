@@ -16,6 +16,8 @@ public class CustomJoint : MonoBehaviour
     public ConfigurableJointMotion AngularXMotion;
     public ConfigurableJointMotion AngularYMotion;
     public ConfigurableJointMotion AngularZMotion;
+    public CustomSoftJointLimitSpring LinearLimitSpring;
+    public CustomSoftJointLimit LinearLimit;
     public CustomJointDrive XDrive;
     public CustomJointDrive YDrive;
     public CustomJointDrive ZDrive;
@@ -24,6 +26,8 @@ public class CustomJoint : MonoBehaviour
     public CustomJointDrive SlerpDrive;
     public float MassScale;
     public float ConnectedMassScale;
+    public bool EnableCollision;
+    public bool EnablePreprocessing;
 
     private ConfigurableJoint configurableJoint;
     private Rigidbody connectedRigToJoint;
@@ -47,6 +51,18 @@ public class CustomJoint : MonoBehaviour
         configurableJoint.angularXMotion = AngularXMotion;
         configurableJoint.angularYMotion = AngularYMotion;
         configurableJoint.angularZMotion = AngularZMotion;
+
+        SoftJointLimitSpring softJointLimitSpring = new SoftJointLimitSpring();
+        softJointLimitSpring.spring = softJointLimitSpring.spring;
+        softJointLimitSpring.damper = softJointLimitSpring.damper;
+
+        SoftJointLimit softJointLimit = new SoftJointLimit();
+        softJointLimit.limit = softJointLimit.limit;
+        softJointLimit.bounciness = softJointLimit.bounciness;
+        softJointLimit.contactDistance = softJointLimit.contactDistance;
+
+        configurableJoint.linearLimitSpring = softJointLimitSpring;
+        configurableJoint.linearLimit = softJointLimit;
 
         JointDrive jointXDrive = new JointDrive();
         jointXDrive.positionSpring = XDrive.positionSpring;
@@ -84,8 +100,8 @@ public class CustomJoint : MonoBehaviour
 
         configurableJoint.massScale = MassScale;
         configurableJoint.connectedMassScale = ConnectedMassScale;
-        configurableJoint.enableCollision = true;
-        configurableJoint.enablePreprocessing = false;
+        configurableJoint.enableCollision = EnableCollision;
+        configurableJoint.enablePreprocessing = EnablePreprocessing;
     }
 
     public void EnableJoint()
@@ -134,4 +150,19 @@ public struct CustomJointDrive
     public float positionSpring;
     public float positionDamper;
     public float maximumForce;
+}
+
+[System.Serializable]
+public struct CustomSoftJointLimitSpring
+{
+    public float Spring;
+    public float Damper;
+}
+
+[System.Serializable]
+public struct CustomSoftJointLimit
+{
+    public float Limit;
+    public float Bounciness;
+    public float ContactDistance;
 }

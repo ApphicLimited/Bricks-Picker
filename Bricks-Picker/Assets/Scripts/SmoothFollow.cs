@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SmoothFollow : MonoBehaviour
 {
-
+    public CameraMovement CameraMovement;
     // The target we are following
     public Transform target;
     // The distance in the x-z plane to the target
@@ -27,6 +27,7 @@ public class SmoothFollow : MonoBehaviour
 
         if (isGoingForward)
         {
+            CameraMovement.enabled = false;
             if (Mathf.Abs(transform.position.z - target.position.z) < distance)
             {
                 return;
@@ -37,35 +38,35 @@ public class SmoothFollow : MonoBehaviour
         else
         {
 
-            // Calculate the current rotation angles
-            float wantedRotationAngle = target.eulerAngles.y;
-            float wantedHeight = target.position.y + height;
+            //// Calculate the current rotation angles
+            //float wantedRotationAngle = target.eulerAngles.y;
+            //float wantedHeight = target.position.y + height;
 
-            float currentRotationAngle = transform.eulerAngles.y;
-            float currentHeight = transform.position.y;
+            //float currentRotationAngle = transform.eulerAngles.y;
+            //float currentHeight = transform.position.y;
 
-            // Damp the rotation around the y-axis
-            currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+            //// Damp the rotation around the y-axis
+            //currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
 
-            // Damp the height
-            currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+            //// Damp the height
+            //currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
 
-            // Convert the angle into a rotation
-            var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+            //// Convert the angle into a rotation
+            //var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
-            // Set the position of the camera on the x-z plane to:
-            // distance meters behind the target
-            transform.position = target.position;
-            transform.position -= currentRotation * Vector3.forward * distance;
+            //// Set the position of the camera on the x-z plane to:
+            //// distance meters behind the target
+            //transform.position = target.position;
+            //transform.position -= currentRotation * Vector3.forward * distance;
 
-            // Set the height of the camera
-            transform.position = new Vector3(transform.position.x + .05f, currentHeight, transform.position.z);
+            //// Set the height of the camera
+            //transform.position = new Vector3(transform.position.x + .05f, currentHeight, transform.position.z);
 
-            // Always look at the target
-            transform.LookAt(target);
-            //make the camera shake if the fCamShakeImpulse is not zero
-            if (fCamShakeImpulse > 0.0f)
-                shakeCamera();
+            //// Always look at the target
+            //transform.LookAt(target);
+            ////make the camera shake if the fCamShakeImpulse is not zero
+            //if (fCamShakeImpulse > 0.0f)
+            //    shakeCamera();
         }
     }
 

@@ -142,17 +142,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectedBody: {fileID: 0}
-  Anchor: {x: 0, y: 0, z: 0}
-  Axis: {x: 0, y: 0.5, z: 0}
-  AutoConfigureConnectedAnchor: 0
+  Anchor: {x: 0, y: 0.5, z: 0}
+  Axis: {x: 1, y: 0, z: 0}
+  AutoConfigureConnectedAnchor: 1
   ConnectedAnchor: {x: 0, y: 0, z: 0}
-  SecondaryAxis: {x: 0, y: 0, z: 0}
+  SecondaryAxis: {x: 0, y: 1, z: 0}
   XMotion: 1
-  YMotion: 1
+  YMotion: 0
   ZMotion: 0
   AngularXMotion: 1
-  AngularYMotion: 1
+  AngularYMotion: 0
   AngularZMotion: 0
+  LinearLimitSpring:
+    Spring: 100
+    Damper: 1
+  LinearLimit:
+    Limit: 0.01
+    Bounciness: 0
+    ContactDistance: 0
   XDrive:
     positionSpring: 0
     positionDamper: 0
@@ -177,5 +184,7 @@ MonoBehaviour:
     positionSpring: 0
     positionDamper: 0
     maximumForce: 3.402823e+38
-  MassScale: 1
+  MassScale: 10
   ConnectedMassScale: 1
+  EnableCollision: 1
+  EnablePreprocessing: 1

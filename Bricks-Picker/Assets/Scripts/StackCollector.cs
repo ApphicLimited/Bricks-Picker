@@ -7,10 +7,8 @@ public class StackCollector : MonoBehaviour
 {
     public float CollecterMaxScale;
     public float CollecterMinScale;
-    public CustomJoint CustomJoint;
+    //public CustomJoint CustomJoint;
     public MeshRenderer MeshRenderer;
-
-    public bool Breakit;
 
     [HideInInspector]
     public List<Stack> CollectedStacks = new List<Stack>();
@@ -20,15 +18,6 @@ public class StackCollector : MonoBehaviour
     {
         SuperPowerController.OnSuperPowerActivated += OnSuperPowerActivated;
         GameManager.instance.OnGameStarted += OnGameStarted;
-    }
-
-    private void Update()
-    {
-        if (Breakit)
-        {
-            ResetJointSettings();
-            Breakit = false;
-        }
     }
 
     public void SetUpMaterial()
@@ -48,9 +37,9 @@ public class StackCollector : MonoBehaviour
     public void ResetJointSettings()
     {
         Destroy(GameManager.instance.PlayerManager.Player.GetComponent<FixedJoint>());
-        CustomJoint.DisableJoint();
-        CustomJoint.BreakForce();
-        CustomJoint.BreakTorque();
+        //CustomJoint.DisableJoint();
+        //CustomJoint.BreakForce();
+        //CustomJoint.BreakTorque();
 
         Destroy(GetComponent<ConfigurableJoint>());
 
@@ -76,16 +65,19 @@ public class StackCollector : MonoBehaviour
 
     private void DoSomething()
     {
-        if (CollectedStacks.Count == 1)
-        {
-            CustomJoint.SetUpJoint(10, CollectedStacks[0].gameObject.GetComponent<Rigidbody>());
-        }
-        else
-        {
-            for (int i = 0; i < CollectedStacks.Count; i++)
-                if (i + 1 < CollectedStacks.Count)
-                    CollectedStacks[i].CustomJoint.SetUpJoint(10, CollectedStacks[i + 1].GetComponent<Rigidbody>());
-        }
+        //if (CollectedStacks.Count == 1)
+        //{
+        //    CustomJoint.SetUpJoint(10, CollectedStacks[0].gameObject.GetComponent<Rigidbody>());
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < CollectedStacks.Count; i++)
+        //        if (i + 1 < CollectedStacks.Count)
+        //            CollectedStacks[i].CustomJoint.SetUpJoint(10, CollectedStacks[i + 1].GetComponent<Rigidbody>());
+        //}
+
+        for (int i = 0; i < CollectedStacks.Count; i++)
+            CollectedStacks[i].CustomJoint.SetUpJoint(10, GetComponent<Rigidbody>());
     }
 
     private void OnCollisionEnter(Collision collision)

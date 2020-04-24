@@ -32,29 +32,7 @@ public class CameraMovement : MonoBehaviour
         if (Mathf.Abs(transform.position.z - GameManager.instance.PlayerManager.EndTransform.position.z) < 20f)
             IsApproachedToEndPoint = true;
 
-        if (isGoingForward)
-        {
-            if (Mathf.Abs(transform.position.z-currentTarget.position.z)<5f)
-            {
-                return;
-            }
-            transform.position += new Vector3(0.01f, 0.01f, 1 * Time.deltaTime * 100);
-            transform.LookAt(currentTarget);
-        }
-        else
-        {
-            AdjustCamPos();
-        }
-    }
-
-    public void lookAt(Transform target)
-    {
-        currentTarget = target;
-    }
-
-    public void GoForward()
-    {
-        isGoingForward = true;
+        AdjustCamPos();
     }
 
     private void AdjustCamPos()
