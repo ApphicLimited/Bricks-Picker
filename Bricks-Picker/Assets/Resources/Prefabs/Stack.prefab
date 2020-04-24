@@ -154,7 +154,7 @@ MonoBehaviour:
   AngularYMotion: 0
   AngularZMotion: 0
   LinearLimitSpring:
-    Spring: 1000
+    Spring: 10
     Damper: 1
   LinearLimit:
     Limit: 0.01
@@ -186,5 +186,5 @@ MonoBehaviour:
     maximumForce: 3.402823e+38
   MassScale: 10
   ConnectedMassScale: 1
-  EnableCollision: 1
+  EnableCollision: 0
   EnablePreprocessing: 1

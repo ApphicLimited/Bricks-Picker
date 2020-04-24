@@ -77,7 +77,7 @@ public class StackCollector : MonoBehaviour
         //}
 
         for (int i = 0; i < CollectedStacks.Count; i++)
-            CollectedStacks[i].CustomJoint.SetUpJoint(10, GetComponent<Rigidbody>());
+            CollectedStacks[i].CustomJoint.SetUpJoint(GetComponent<Rigidbody>());
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -91,7 +91,8 @@ public class StackCollector : MonoBehaviour
                 if (CollectedStacks.Count == 1)
                     CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, 0.5f, transform.position.z), DoSomething);
                 else
-                    CollectedStacks.Last().MoveOverCollecter(CollectedStacks[CollectedStacks.Count - 2].transform.position + Vector3.up * 0.2f, DoSomething);
+                    CollectedStacks.Last().MoveOverCollecter(new Vector3(transform.position.x, CollectedStacks.Count * 0.2f, transform.position.z), DoSomething);
+                    //CollectedStacks.Last().MoveOverCollecter(CollectedStacks[CollectedStacks.Count - 2].transform.position + Vector3.up * 0.2f, DoSomething);
 
                 //int mass = 1000 - CollectedStacks.Count;
                 //if (mass>10)

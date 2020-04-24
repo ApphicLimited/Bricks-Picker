@@ -32,9 +32,9 @@ public class CustomJoint : MonoBehaviour
     private ConfigurableJoint configurableJoint;
     private Rigidbody connectedRigToJoint;
 
-    public void SetUpJoint(int positionDamper, Rigidbody connectedRig)
+    public void SetUpJoint(Rigidbody connectedRig)
     {
-        if (configurableJoint!=null)
+        if (configurableJoint != null)
         {
             return;
         }
@@ -53,20 +53,20 @@ public class CustomJoint : MonoBehaviour
         configurableJoint.angularZMotion = AngularZMotion;
 
         SoftJointLimitSpring softJointLimitSpring = new SoftJointLimitSpring();
-        softJointLimitSpring.spring = softJointLimitSpring.spring;
-        softJointLimitSpring.damper = softJointLimitSpring.damper;
+        softJointLimitSpring.spring = LinearLimitSpring.Spring;
+        softJointLimitSpring.damper = LinearLimitSpring.Damper;
 
         SoftJointLimit softJointLimit = new SoftJointLimit();
-        softJointLimit.limit = softJointLimit.limit;
-        softJointLimit.bounciness = softJointLimit.bounciness;
-        softJointLimit.contactDistance = softJointLimit.contactDistance;
+        softJointLimit.limit = LinearLimit.Limit;
+        softJointLimit.bounciness = LinearLimit.Bounciness;
+        softJointLimit.contactDistance = LinearLimit.ContactDistance;
 
         configurableJoint.linearLimitSpring = softJointLimitSpring;
         configurableJoint.linearLimit = softJointLimit;
 
         JointDrive jointXDrive = new JointDrive();
         jointXDrive.positionSpring = XDrive.positionSpring;
-        jointXDrive.positionDamper = 0;
+        jointXDrive.positionDamper = XDrive.positionDamper;
         jointXDrive.maximumForce = XDrive.maximumForce;
         JointDrive jointYDrive = new JointDrive();
         jointYDrive.positionSpring = YDrive.positionSpring;
