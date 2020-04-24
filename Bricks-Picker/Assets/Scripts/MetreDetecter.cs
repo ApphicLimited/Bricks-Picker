@@ -11,7 +11,7 @@ public class MetreDetecter : MonoBehaviour
         if (other.tag == "Stack")
         {
             GameManager.instance.ScoreController.FurtherStackMetre = Metre;
-            //GameManager.instance.CameraMovement.SwapTarget(transform);
+            GameManager.instance.CameraMovement.lookAt(this.transform);
             gameObject.SetActive(false);
         }
     }
@@ -21,7 +21,7 @@ public class MetreDetecter : MonoBehaviour
         if (collision.collider.tag == "Stack")
         {
             GameManager.instance.ScoreController.FurtherStackMetre = Metre;
-            //GameManager.instance.CameraMovement.SwapTarget(transform);
+            GameManager.instance.CameraMovement.lookAt(this.transform);
             gameObject.SetActive(false);
         }
     }

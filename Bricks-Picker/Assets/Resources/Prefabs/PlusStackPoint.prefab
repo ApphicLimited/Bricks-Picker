@@ -123,3 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimationSpeed: 10
   StartAnimation: 0
+  nextPosition: {x: 0, y: 500, z: 0}

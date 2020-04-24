@@ -84,6 +84,8 @@ public class CustomJoint : MonoBehaviour
 
         configurableJoint.massScale = MassScale;
         configurableJoint.connectedMassScale = ConnectedMassScale;
+        configurableJoint.enableCollision = true;
+        configurableJoint.enablePreprocessing = false;
     }
 
     public void EnableJoint()

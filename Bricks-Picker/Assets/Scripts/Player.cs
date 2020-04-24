@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public SkinnedMeshRenderer SkinnedMeshRenderer;
     public StackCollector StackCollector;
     public Animator Animator;
+    public Rigidbody Rigidbody;
 
     public BaseColour CurrentBaseColour { get; set; }
 
@@ -80,9 +81,13 @@ public class Player : MonoBehaviour
     private void ArrivedDest()
     {
         IsArrived = true;
+
+        Destroy(GetComponent<FixedJoint>());
+        StackCollector.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
+        PlayKickAnim();
+        //Jump up
+        Rigidbody.velocity = new Vector3(0f, 5f, -5f);
         GameManager.instance.TimeController.DoSlowMotion();
-        GameManager.instance.CameraMovement.AdjustCamToKicking();
-        StackCollector.ResetJointSettings();
         GameManager.instance.GameState = GameStates.GamePaused;
     }
 
@@ -94,4 +99,15 @@ public class Player : MonoBehaviour
             other.GetComponent<Coin>().DisAppear();
         }
     }
+
+    #region Animation Event
+
+    public void AtEndOfKickingAnim()
+    {
+        GameManager.instance.CameraMovement.GoForward();
+        StackCollector.ResetJointSettings();
+        StackCollector.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
+    }
+
+    #endregion
 }

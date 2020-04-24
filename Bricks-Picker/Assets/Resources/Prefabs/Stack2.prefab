@@ -154,15 +154,15 @@ MonoBehaviour:
   AngularYMotion: 1
   AngularZMotion: 0
   XDrive:
-    positionSpring: 10
+    positionSpring: 0
     positionDamper: 0
     maximumForce: 3.402823e+38
   YDrive:
-    positionSpring: 10
+    positionSpring: 0
     positionDamper: 0
     maximumForce: 3.402823e+38
   ZDrive:
-    positionSpring: 10
+    positionSpring: 0
     positionDamper: 0
     maximumForce: 3.402823e+38
   AngularXDrive:
@@ -174,7 +174,7 @@ MonoBehaviour:
     positionDamper: 0
     maximumForce: 3.402823e+38
   SlerpDrive:
-    positionSpring: 100
+    positionSpring: 0
     positionDamper: 0
     maximumForce: 3.402823e+38
   MassScale: 1

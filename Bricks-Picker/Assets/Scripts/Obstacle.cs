@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float MinDistance;
+    public Move AnimationMove;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Vector3.Distance(transform.position,GameManager.instance.PlayerManager.Player.transform.position)< MinDistance)
+        {
+            AnimationMove.StartAnimation = true;
+        }
     }
 }

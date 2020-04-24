@@ -6,16 +6,13 @@ public class Move : MonoBehaviour
 {
     public float AnimationSpeed;
     public bool StartAnimation;
-    public float DesiredHeight = 500;
 
     private RectTransform rectTransform;
-    private Vector3 nextPosition;
+    public Vector3 nextPosition;
 
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-
-        nextPosition += Vector3.up * DesiredHeight;
     }
 
     // Update is called once per frame

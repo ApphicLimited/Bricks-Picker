@@ -11,56 +11,65 @@ public class CameraMovement : MonoBehaviour
     public Vector3 StarPos;
     public Vector3 InGamePos;
     public Vector3 KickingPos;
+    public Vector3 GoingForwardPos;
     public float SmoothSpeed;
 
     private Transform currentTarget;
     private Vector3 desiredPosition = Vector3.zero;
+    private Vector3 desiredPosition2 = Vector3.zero;
     private Vector3 Velocity = Vector3.zero;
-    private bool isKicking;
+    private bool isGoingForward;
+    private bool IsApproachedToEndPoint;
 
     private void Start()
     {
-        isKicking = false;
+        isGoingForward = false;
         currentTarget = TargetPlayer;
     }
 
     private void Update()
     {
-        AdjustCamPos();
+        if (Mathf.Abs(transform.position.z - GameManager.instance.PlayerManager.EndTransform.position.z) < 20f)
+            IsApproachedToEndPoint = true;
 
-        if (isKicking)
-            if (Vector3.Distance(transform.position, desiredPosition) < 0.1f)
+        if (isGoingForward)
+        {
+            if (Mathf.Abs(transform.position.z-currentTarget.position.z)<5f)
             {
-                GameManager.instance.PlayerManager.Player.PlayKickAnim();
+                return;
             }
+            transform.position += new Vector3(0.01f, 0.01f, 1 * Time.deltaTime * 100);
+            transform.LookAt(currentTarget);
+        }
+        else
+        {
+            AdjustCamPos();
+        }
+    }
+
+    public void lookAt(Transform target)
+    {
+        currentTarget = target;
+    }
+
+    public void GoForward()
+    {
+        isGoingForward = true;
     }
 
     private void AdjustCamPos()
     {
-        if (GameManager.instance.GameState == GameStates.GamePaused)
-        {
-            if (isKicking)
-                desiredPosition = currentTarget.TransformPoint(KickingPos);
-            else
-                desiredPosition = currentTarget.TransformPoint(StarPos);
-        }
+        if (IsApproachedToEndPoint)
+            desiredPosition = currentTarget.TransformPoint(KickingPos);
         else if (GameManager.instance.GameState == GameStates.GameOnGoing)
             desiredPosition = currentTarget.TransformPoint(InGamePos);
+        else
+            desiredPosition = currentTarget.TransformPoint(StarPos);
 
         // Smoothly move the camera towards that target position
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref Velocity, SmoothSpeed);
 
         transform.LookAt(currentTarget);
-    }
-
-    public void SwapTarget(Transform nextTarget)
-    {
-        currentTarget = nextTarget;
-    }
-
-    public void AdjustCamToKicking()
-    {
-        isKicking = true;
     }
 
     private void OnValidate()

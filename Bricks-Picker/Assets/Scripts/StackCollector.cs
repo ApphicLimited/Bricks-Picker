@@ -101,6 +101,12 @@ public class StackCollector : MonoBehaviour
                 else
                     CollectedStacks.Last().MoveOverCollecter(CollectedStacks[CollectedStacks.Count - 2].transform.position + Vector3.up * 0.2f, DoSomething);
 
+                //int mass = 1000 - CollectedStacks.Count;
+                //if (mass>10)
+                //{
+                //    collision.collider.GetComponent<Stack>().Rigidbody.mass = mass;
+                //}
+
                 GameManager.instance.SuperPowerController.AddPower(CollectedStacks.Last().Point);
                 GameManager.instance.ScoreController.CurrentCollectedStackNumber++;
                 GameManager.instance.StackManager.Stacks.Remove(collision.collider.GetComponent<Stack>());
