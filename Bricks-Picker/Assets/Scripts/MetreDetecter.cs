@@ -8,7 +8,7 @@ public class MetreDetecter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Stack")
+        if (other.tag == Constants.TAG_STACK)
         {
             GameManager.instance.ScoreController.FurtherStackMetre = Metre;
             GameManager.instance.SmothFollow.target = transform;

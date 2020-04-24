@@ -9,6 +9,12 @@ public class StackManager : MonoBehaviour
     public Material MaterialSource;
     public Text TextStackCount;
 
+    public float MaxStackWaveStrength;
+    public float MinStackWaveStrength;
+    public float PerStackWaveReductionAmount;
+
+    public float StackThrowingForce;
+
     private void Start()
     {
         SuperPowerController.OnSuperPowerActivated += OnSuperPowerActivated;

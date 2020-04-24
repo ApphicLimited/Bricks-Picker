@@ -5,7 +5,9 @@ using System;
 
 public class Constants 
 {
-   
+    public const string TAG_STACK = "Stack";
+    public const string TAG_COIN = "Coin";
+    public const string TAG_PLAYER = "Player";
 }
 
 [Serializable]

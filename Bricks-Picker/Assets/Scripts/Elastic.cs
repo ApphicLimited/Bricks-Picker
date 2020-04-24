@@ -19,8 +19,6 @@ public class Elastic : MonoBehaviour
         nextPos.z = Target.position.z;
         nextPos.x = Target.position.x;
         nextPos.y = transform.position.y;
-
-        //transform.position = nextPos;
     }
 
     private void FixedUpdate()

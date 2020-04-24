@@ -7,23 +7,19 @@ public class Stack : MonoBehaviour
     public BaseColour MainColour;
     public int Point;
     public Elastic Elastic;
-    //public CustomJoint CustomJoint;
     public MeshRenderer MeshRenderer;
     public Rigidbody Rigidbody;
 
     public BaseColour CurrentColour { get; set; }
 
     private Material materialClone;
-    //private bool keepdestroy;
-    //private bool IsCollected;
 
     public delegate void AfterMoved();
     public AfterMoved AfterMovedDoAction;
 
     private void Start()
     {
-        materialClone = new Material(GameManager.instance.StackManager.MaterialSource);
-        MeshRenderer.material = materialClone;
+        SetUpMaterial();
         ChangeColour(MainColour);
     }
 
@@ -33,30 +29,28 @@ public class Stack : MonoBehaviour
             return;
     }
 
+    private void SetUpMaterial()
+    {
+        materialClone = new Material(GameManager.instance.StackManager.MaterialSource);
+        MeshRenderer.material = materialClone;
+    }
+
     public void ChangeColour(BaseColour colour)
     {
         CurrentColour = colour;
-        if (materialClone==null)
-        {
-            Debug.Log("NULL");
-        }
-        else
-        {
-            materialClone.color = GameManager.instance.ColourController.GetColour(colour);
-        }
+        if (materialClone == null)
+            SetUpMaterial();
+
+        materialClone.color = GameManager.instance.ColourController.GetColour(colour);
     }
 
     public void ResetColour()
     {
         CurrentColour = MainColour;
         if (materialClone == null)
-        {
-            Debug.Log("NULL");
-        }
-        else
-        {
-            materialClone.color = GameManager.instance.ColourController.GetColour(MainColour);
-        }
+            SetUpMaterial();
+
+        materialClone.color = GameManager.instance.ColourController.GetColour(MainColour);
     }
 
     public void EnableElastic(bool isEnable, Transform _transform = null)
@@ -76,16 +70,14 @@ public class Stack : MonoBehaviour
         }
 
         if (_transform != null)
-        {
             Elastic.Target = _transform;
-        }
 
         Elastic.enabled = isEnable;
     }
 
-    public void AddForce()
+    public void ThrowAway()
     {
-        Rigidbody.AddForce(Vector3.forward * 30, ForceMode.Impulse);
+        Rigidbody.AddForce(Vector3.forward * GameManager.instance.StackManager.StackThrowingForce, ForceMode.Impulse);
     }
 
     public void MoveOverCollecter(Vector3 newPos, AfterMoved action = null)

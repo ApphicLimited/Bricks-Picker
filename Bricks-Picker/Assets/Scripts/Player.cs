@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag=="Coin")
+        if (other.tag==Constants.TAG_COIN)
         {
             GameManager.instance.CoinController.CollectedCoins++;
             other.GetComponent<Coin>().DisAppear();
@@ -106,7 +106,6 @@ public class Player : MonoBehaviour
     {
         GameManager.instance.SmothFollow.GoForward();
         StackCollector.ResetJointSettings();
-        StackCollector.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
     }
 
     #endregion

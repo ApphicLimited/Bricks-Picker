@@ -12,6 +12,11 @@ public class CongratWordPrefab : MonoBehaviour
 
     private void Start()
     {
+        PickWordRandomly();
+    }
+
+    private void PickWordRandomly()
+    {
         int maxNumber = (int)CongratWords.MAX;
         CongratWords myEnum = (CongratWords)Random.Range(0, maxNumber);
         TextWord.text = myEnum.ToString();
