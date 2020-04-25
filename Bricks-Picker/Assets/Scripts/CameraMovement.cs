@@ -8,10 +8,10 @@ public class CameraMovement : MonoBehaviour
     public bool RunInEditor = false;
     [Space]
     public Transform TargetPlayer;
-    public Vector3 StarPos;
-    public Vector3 InGamePos;
-    public Vector3 KickingPos;
-    public Vector3 GoingForwardPos;
+    public Transform StarPos;
+    public Transform InGamePos;
+    public Transform KickingPos;
+    public Transform GoingForwardPos;
     public float SmoothSpeed;
 
     private Transform currentTarget;
@@ -21,8 +21,12 @@ public class CameraMovement : MonoBehaviour
     private bool isGoingForward;
     private bool IsApproachedToEndPoint;
 
+
+    public SmoothFollow camerafollow;
+
     private void Start()
     {
+        camerafollow = GetComponent<SmoothFollow>();
         isGoingForward = false;
         currentTarget = TargetPlayer;
     }
@@ -40,17 +44,23 @@ public class CameraMovement : MonoBehaviour
 
     private void AdjustCamPos()
     {
-        if (IsApproachedToEndPoint)
-            desiredPosition = currentTarget.TransformPoint(KickingPos);
-        else if (GameManager.instance.GameState == GameStates.GameOnGoing)
-            desiredPosition = currentTarget.TransformPoint(InGamePos);
-        else
-            desiredPosition = currentTarget.TransformPoint(StarPos);
+        if (IsApproachedToEndPoint && camerafollow.target != KickingPos)
+        {
+            camerafollow.target = KickingPos;
+        }
+        else if (GameManager.instance.GameState == GameStates.GameOnGoing && camerafollow.target != InGamePos)
+        {
+            camerafollow.target = InGamePos;
+        }
+        else if (!IsApproachedToEndPoint && GameManager.instance.GameState != GameStates.GameOnGoing && camerafollow.target != StarPos)
+        {
+            camerafollow.target = StarPos;
+        }
 
         // Smoothly move the camera towards that target position
-        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref Velocity, SmoothSpeed);
+        //transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref Velocity, SmoothSpeed);
 
-        transform.LookAt(currentTarget);
+        //transform.LookAt(currentTarget);
     }
 
     private void OnValidate()
@@ -58,11 +68,11 @@ public class CameraMovement : MonoBehaviour
         if (!RunInEditor)
             return;
 
-        desiredPosition = TargetPlayer.TransformPoint(KickingPos);
+        camerafollow.target = KickingPos;
 
         // Smoothly move the camera towards that target position
-        transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref Velocity, SmoothSpeed);
+        //transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref Velocity, SmoothSpeed);
 
-        transform.LookAt(TargetPlayer);
+        //transform.LookAt(TargetPlayer);
     }
 }
