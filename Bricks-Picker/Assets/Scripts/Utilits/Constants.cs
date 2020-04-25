@@ -8,6 +8,11 @@ public class Constants
     public const string TAG_STACK = "Stack";
     public const string TAG_COIN = "Coin";
     public const string TAG_PLAYER = "Player";
+
+    public const string EFFECT_VOLUME_AMOUNT_KEY = "effectvolume";
+    public const string MUSIC_VOLUME_AMOUNT_KEY = "musicvolume";
+    public const string EFFECT_VOLUME_TOOGLE_KEY = "effecttoggle"; 
+    public const string MUSIC_VOLUME_TOOGLE_KEY = "musictoggle";
 }
 
 [Serializable]
@@ -56,4 +61,13 @@ public enum BaseColour
     White = 9,
 
     MAX = 10
+}
+
+[Serializable]
+public enum ClipStyle
+{
+    Effect = 0,
+    Music = 1,
+
+    MAX = 2
 }

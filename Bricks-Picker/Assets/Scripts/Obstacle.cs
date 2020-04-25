@@ -7,13 +7,11 @@ public class Obstacle : MonoBehaviour
     public float MinDistance;
     public Move AnimationMove;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
+        if (GameManager.instance.GameState!= GameStates.GameOnGoing)
+            return;
+
         if (Vector3.Distance(transform.position,GameManager.instance.PlayerManager.Player.transform.position)< MinDistance)
         {
             AnimationMove.StartAnimation = true;

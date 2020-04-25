@@ -38,16 +38,16 @@ public class StackCollector : MonoBehaviour
     public void ResetJointSettings()
     {
         Destroy(GameManager.instance.PlayerManager.Player.GetComponent<FixedJoint>());
-        GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
 
         foreach (var item in CollectedStacks)
         {
+            item.Rigidbody.isKinematic = false;
             item.EnableElastic(false);
             item.ThrowAway();
         }
         GameManager.instance.GameState = GameStates.GameFinished;
 
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     private void UseMaxScale()
@@ -93,7 +93,12 @@ public class StackCollector : MonoBehaviour
                             transform.position.z),
                             DoSomething);
 
-                        CollectedStacks[i].Elastic.AnimationSpeed -= perAnimationRange + GameManager.instance.StackManager.PerStackWaveReductionAmount;
+                        CollectedStacks[i].Elastic.AnimationSpeed -= GameManager.instance.StackManager.PerStackWaveReductionAmount;
+                        GameManager.instance.PlayerManager.Player.Rigidbody.mass += CollectedStacks[i].Rigidbody.mass;
+                        GameManager.instance.PlayerManager.Player.GetComponent<FixedJoint>().connectedMassScale += CollectedStacks[i].Rigidbody.mass;
+                        GetComponent<Rigidbody>().mass += CollectedStacks[i].Rigidbody.mass;
+
+                        GameManager.instance.PlayerManager.Player.Rigidbody.mass += CollectedStacks[i].Rigidbody.mass;
 
                         if (CollectedStacks[i].Elastic.AnimationSpeed < GameManager.instance.StackManager.MinStackWaveStrength)
                             CollectedStacks[i].Elastic.AnimationSpeed = GameManager.instance.StackManager.MinStackWaveStrength;

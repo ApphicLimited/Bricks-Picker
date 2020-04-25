@@ -78,6 +78,7 @@ public class Stack : MonoBehaviour
     public void ThrowAway()
     {
         Rigidbody.AddForce(Vector3.forward * GameManager.instance.StackManager.StackThrowingForce, ForceMode.Impulse);
+        Destroy(this);
     }
 
     public void MoveOverCollecter(Vector3 newPos, AfterMoved action = null)

@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = GameManager.instance.PlayerManager.StartTransform.position;
         CurrentBaseColour = BaseColour;
     }
 
@@ -31,12 +30,14 @@ public class Player : MonoBehaviour
         if (GameManager.instance.GameState != GameStates.GameOnGoing)
             return;
 
-        if (Vector3.Distance(GameManager.instance.PlayerManager.EndTransform.position, transform.position) < 3f)
+        if (Math.Abs(GameManager.instance.PlayerManager.EndTransform.position.z- transform.position.z) < 3f)
         {
             if (IsArrived == false)
                 ArrivedDest();
             return;
         }
+
+        //StackCollector.transform.position = new Vector3(transform.position.x, StackCollector.transform.position.y, transform.position.z + 1.4f);
 
         transform.Translate(Vector3.forward * Time.deltaTime * ForwardSpeed);
         nextPosition.z = transform.position.z;
@@ -83,10 +84,11 @@ public class Player : MonoBehaviour
         IsArrived = true;
 
         Destroy(GetComponent<FixedJoint>());
+        StackCollector.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 3f);
         StackCollector.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePositionZ;
         PlayKickAnim();
         //Jump up
-        Rigidbody.velocity = new Vector3(0f, 5f, -4f);
+        Rigidbody.velocity = new Vector3(0f, 7f, 1.5f);
         GameManager.instance.TimeController.DoSlowMotion();
         GameManager.instance.GameState = GameStates.GamePaused;
     }
@@ -106,6 +108,8 @@ public class Player : MonoBehaviour
     {
         GameManager.instance.SmothFollow.GoForward();
         StackCollector.ResetJointSettings();
+        Destroy(gameObject);
+       GameManager.instance.TimeController.StopSlowMotion();
     }
 
     #endregion
