@@ -3159,7 +3159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161665547231481026}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1614a897f7517854bbc53f41fb677b21, type: 3}
   m_Name: 
@@ -3188,7 +3188,7 @@ MonoBehaviour:
   distance: 10
   height: 5
   heightDamping: 2
-  rotationDamping: 0
+  rotationDamping: 3
   fCamShakeImpulse: 0
 --- !u!1 &161665547238030017
 GameObject:
